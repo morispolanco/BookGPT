@@ -29,6 +29,9 @@ def initialize():
             valid = False
             st.error('API key is not valid!')
 
+def get_categories():
+    return ["Category 1", "Category 2", "Category 3"]
+
 
 def generate_book(chapters, words, category, topic, language):
     book = Book(chapters, words, topic, category, language)
