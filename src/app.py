@@ -1,6 +1,6 @@
 import streamlit as st
 import openai
-from book import Book  # Assuming you have a Book class defined in a 'book.py' file
+from book import Book  # Import your Book class
 # Assuming you have a utils.py file with a get_categories function defined
 
 valid = False
@@ -30,7 +30,7 @@ def initialize():
 
 def generate_book(chapters, words, category, topic, language):
     book = Book(chapters=chapters, words=words, category=category, topic=topic, language=language)
-    content = book.get_md()
+    content = book.generate_content()  # Assuming the method to generate content is called generate_content
     st.markdown(content)
 
 def show_form():
