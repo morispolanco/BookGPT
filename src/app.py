@@ -1,7 +1,7 @@
 import streamlit as st
 import openai
-from book import Book
-from utils import *
+from book import Book  # Assuming you have a Book class defined in a 'book.py' file
+# Assuming you have a utils.py file with a get_categories function defined
 
 valid = False
 content = ''
@@ -9,7 +9,6 @@ content = ''
 # Center the title
 st.title('BookGPT')
 st.markdown('---')
-
 
 def initialize():
     global valid
@@ -29,16 +28,10 @@ def initialize():
             valid = False
             st.error('API key is not valid!')
 
-def get_categories():
-    return ["Category 1", "Category 2", "Category 3"]
-
-
 def generate_book(chapters, words, category, topic, language):
-    book = Book(chapters, words, topic, category, language)
-
+    book = Book(chapters=chapters, words=words, category=category, topic=topic, language=language)
     content = book.get_md()
     st.markdown(content)
-
 
 def show_form():
     # Create form for user input
@@ -53,7 +46,7 @@ def show_form():
 
         # Get the category of the book
         category = st.selectbox('What is the category of the book?',
-                                get_categories())
+                                ['Category 1', 'Category 2', 'Category 3'])  # Replace with your actual categories
 
         # Get the topic of the book
         topic = st.text_input('What is the topic of the book?', placeholder='e.g. "Finance"')
@@ -74,9 +67,7 @@ def show_form():
 
         # Generate the book
         elif submit:
-            # Generate the book outside the form
             generate_book(chapters, words, category, topic, language)
-
 
 initialize()
 show_form()
