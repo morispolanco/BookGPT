@@ -55,8 +55,9 @@ def main():
     draw('BookGPT')
 
     # Check if the user wants to generate a new book or not
-    if get_option(['Generate a book', 'Exit'], 'option') - 1:
+    if get_option(['Generate a book', 'Exit']) - 1:
         return
+
 
 
     # Get the number of chapters
