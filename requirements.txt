@@ -6,3 +6,4 @@ pyfiglet~=0.8.post1
 streamlit~=1.17.0
 gtts~=2.3.1
 tqdm~=4.64.1
+streamlit_chat
