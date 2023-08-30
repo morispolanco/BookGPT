@@ -4,15 +4,14 @@ from book import Book
 import json
 import openai
 
-# Configurar la clave de la API de OpenAI
+# Configure the OpenAI API key
 api_key = st.sidebar.text_input("Enter your OpenAI API key", type="password")
 
 if not api_key:
     st.warning("Please enter a valid API key to continue.")
 else:
     openai.api_key = api_key
-    # Continuar con el resto del código que utiliza la clave de API
-
+    # Continue with the rest of the code that uses the API key
 
 # Draw the given text in a figlet
 def draw(text):
@@ -49,7 +48,7 @@ def get_option(options):
 # Main function
 def main():
     # Set the OpenAI API key
-    openai.api_key = get_api_key()
+    openai.api_key = api_key
 
     # Draw the title
     draw('BookGPT')
@@ -103,7 +102,7 @@ def main():
     # Print the title
     st.write(f'Title: {book.get_title()}')
 
-    # Ask if he wants to change the title until he is satisfied
+    # Ask if the user wants to change the title until they are satisfied
     while True:
         st.write('Do you want to generate a new title?')
         if get_option(['No', 'Yes']) - 1:
@@ -116,9 +115,15 @@ def main():
     structure, _ = book.get_structure()
     st.write(structure)
 
-    # Ask if he wants to change the structure until he is satisfied
+    # Ask if the user wants to change the structure until they are satisfied
     while True:
         st.write('Do you want to generate a new structure?')
         if get_option(['No', 'Yes']) - 1:
             st.write('Structure of the book:')
-            structure, _ = book.get
+            structure, _ = book.get_structure()
+            st.write(structure)
+        else:
+            break
+
+if __name__ == '__main__':
+    main()
