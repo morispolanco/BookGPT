@@ -22,7 +22,7 @@ def draw(text):
     st.text(f.renderText(text))
 
 # Get a selection from a list of options
-def get_option(options):
+def get_option(options, key):
     # Print the available options
     st.write('Please select an option:')
     for i, option in enumerate(options):
@@ -32,7 +32,7 @@ def get_option(options):
     while True:
         try:
             # Get the selection
-            selection = int(st.text_input('> '))
+            selection = int(st.text_input(key, '> '))
 
             # Check if the selection is valid
             if selection < 1 or selection > len(options):
@@ -54,40 +54,40 @@ def main():
     draw('BookGPT')
 
     # Check if the user wants to generate a new book or not
-    if get_option(['Generate a book', 'Exit']) - 1:
+    if get_option(['Generate a book', 'Exit'], 'option') - 1:
         return
 
     # Get the number of chapters
     st.write('How many chapters should the book have?')
-    chapters = int(st.text_input('> '))
+    chapters = int(st.text_input('chapters', '> '))
 
     # Get the number of words per chapter
     st.write('How many words should each chapter have?')
     # Check if it is below 1200
-    words = int(st.text_input('> '))
+    words = int(st.text_input('words', '> '))
     if words <= 1200:
         words = 1200
         st.write('The number of words per chapter has been set to 1200. (The max number of words per chapter)')
 
     # Get the category of the book
     st.write('What is the category of the book?')
-    category = st.text_input('> ')
+    category = st.text_input('category', '> ')
 
     # Get the topic of the book
     st.write('What is the topic of the book?')
-    topic = st.text_input('> ')
+    topic = st.text_input('topic', '> ')
 
     # What is the tolerance of the book?
     st.write('What is the tolerance of the book? (0.8 means that 80% of the words will be written 100%)')
-    tolerance = float(st.text_input('> '))
+    tolerance = float(st.text_input('tolerance', '> '))
     if tolerance < 0 or tolerance > 1:
         tolerance = 0.8
 
     # Do you want to add any additional parameters?
     st.write('Do you want to add any additional parameters?')
-    if get_option(['No', 'Yes']) - 1:
+    if get_option(['No', 'Yes'], 'additional_params') - 1:
         st.write('Please enter the additional parameters in the following format: "parameter1=value1, parameter2=value2, ..."')
-        additional_parameters = st.text_input('> ')
+        additional_parameters = st.text_input('additional_parameters', '> ')
         additional_parameters = additional_parameters.split(', ')
         for i in range(len(additional_parameters)):
             additional_parameters[i] = additional_parameters[i].split('=')
@@ -105,7 +105,20 @@ def main():
     # Ask if the user wants to change the title until they are satisfied
     while True:
         st.write('Do you want to generate a new title?')
-        if get_option(['No', 'Yes']) - 1:
+        if get_option(['No', 'Yes'], 'new_title') - 1:
+            st.write(f'Title: {book.get_title()}')
+        else:
+            break
+
+    # Print the structure of the book
+    st.write('Structure of the book:')
+    structure, _ = book.get_structure()
+    st.write(structure)
+
+    # Ask if the user wants to change the structure until they are satisfied
+    while True:
+        st.write('Do you want to generate a new structure?')
+        if get_option(['No', 'Yes'], 'new_structure') - 1:
             st.write(f'Title: {book.get_title()}')
         else:
             break
