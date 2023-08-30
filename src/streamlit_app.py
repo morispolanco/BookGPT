@@ -21,7 +21,7 @@ book = None
 # Configure the OpenAI API key
 def configure_api_key():
     st.write("Hello! I'm BookBot. Please enter your OpenAI API key to get started.")
-    api_key = st.text_input("Enter your OpenAI API key", type="password")
+    api_key = st.text_input("Enter your OpenAI API key", type="password", key="api_key_input")
 
     if api_key:
         st.success("API key configured successfully!")
@@ -45,10 +45,10 @@ def main_chat():
 
     # Chat loop
     while True:
-        user_input = st.text_input("You:").strip().lower()
+        user_input = st.text_input("You:", key="user_input").strip().lower()
 
         if user_input == "exit":
-            st.write("Goodbye! Feel free to come back whenever you want to create a book.")
+            st.write("BookBot: Goodbye! Feel free to come back whenever you want to create a book.")
             break
         elif "generate a book" in user_input:
             st.write("BookBot: Great! Let's generate a book.")
@@ -65,14 +65,14 @@ def draw(text):
     st.text(f.renderText(text))
 
 # Get a selection from a list of options
-def get_option(options):
+def get_option(options, key):
     # Print the available options
     st.write('BookBot:', 'Please select an option:')
     for i, option in enumerate(options):
         st.write(f'[{i + 1}] {option}')
 
     # Get the selection
-    selection = int(st.text_input('You:'))
+    selection = int(st.text_input('You:', key=key))
 
     return selection
 
@@ -82,40 +82,9 @@ def generate_book():
 
     # Get the number of chapters
     st.write("BookBot:", "How many chapters should the book have?")
-    chapters = int(st.text_input('You:'))
+    chapters = int(st.text_input('You:', key="chapters_input"))
 
-    # Get the number of words per chapter
-    st.write("BookBot:", "How many words should each chapter have?")
-    words_per_chapter = int(st.text_input('You:'))
-    if words_per_chapter <= 1200:
-        words_per_chapter = 1200
-        st.write("BookBot:", "The number of words per chapter has been set to 1200. (The max number of words per chapter)")
-
-    # Get the category of the book
-    st.write("BookBot:", "What is the category of the book?")
-    category = st.text_input('You:')
-
-    # Get the topic of the book
-    st.write("BookBot:", "What is the topic of the book?")
-    topic = st.text_input('You:')
-
-    # Get the tolerance of the book
-    st.write("BookBot:", "What is the tolerance of the book? (0.8 means that 80% of the words will be written 100%)")
-    tolerance = float(st.text_input('You:'))
-    if tolerance < 0 or tolerance > 1:
-        tolerance = 0.8
-
-    # Initialize the Book
-    st.write("BookBot:", "Initializing the book with the following parameters:")
-    st.write(f"- Chapters: {chapters}")
-    st.write(f"- Words per Chapter: {words_per_chapter}")
-    st.write(f"- Category: {category}")
-    st.write(f"- Topic: {topic}")
-    st.write(f"- Tolerance: {tolerance}")
-    
-    # Continue with generating the book using these parameters
-    # ...
-    st.write("BookBot:", "Book generated successfully!")
+    # Rest of your generate_book() function...
 
 # Run the chat app
 if __name__ == '__main__':
