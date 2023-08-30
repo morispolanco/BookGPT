@@ -58,6 +58,7 @@ def main():
     if get_option(['Generate a book', 'Exit'], 'option') - 1:
         return
 
+
     # Get the number of chapters
     st.write('How many chapters should the book have?')
     chapters = int(st.text_input('chapters', '> '))
@@ -129,6 +130,7 @@ def main():
     structure, _ = book.get_structure()
     st.write(structure)
 
+   
     # Ask if the user wants to change the structure until they are satisfied
     while True:
         st.write('Do you want to generate a new structure?')
