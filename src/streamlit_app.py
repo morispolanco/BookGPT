@@ -5,7 +5,7 @@ import json
 import openai
 
 # Configure the OpenAI API key
-api_key = st.sidebar.text_input("Enter your OpenAI API key", type="password")
+api_key = st.sidebar.text_input("Enter your OpenAI API key", type="password", key="api_key_input")
 
 if not api_key:
     st.warning("Please enter a valid API key to continue.")
@@ -22,7 +22,7 @@ def draw(text):
     st.text(f.renderText(text))
 
 # Get a selection from a list of options
-def get_option(options, key):
+def get_option(options):
     # Print the available options
     st.write('Please select an option:')
     for i, option in enumerate(options):
@@ -32,7 +32,7 @@ def get_option(options, key):
     while True:
         try:
             # Get the selection
-            selection = int(st.text_input(key, '> '))
+            selection = int(st.text_input('> ', key="selection_input"))
 
             # Check if the selection is valid
             if selection < 1 or selection > len(options):
@@ -44,6 +44,7 @@ def get_option(options, key):
         # User input was not valid
         except ValueError:
             st.write('Invalid option. Please try again.')
+
 
 # Main function
 def main():
