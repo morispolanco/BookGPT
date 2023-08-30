@@ -29,7 +29,6 @@ def configure_api_key():
     
     return api_key
 
-# Main chat function
 def main_chat():
     st.title("BookBot - Your Personal Book Generator")
 
@@ -44,19 +43,24 @@ def main_chat():
     # Draw the title
     draw('BookGPT')
 
+    chat_history = []
+
     # Chat loop
     while True:
         user_input = st.text_input("You:", key="user_input").strip().lower()
 
         if user_input == "exit":
-            st.write("BookBot: Goodbye! Feel free to come back whenever you want to create a book.")
+            chat_history.append(('BookBot', "Goodbye! Feel free to come back whenever you want to create a book."))
             break
         elif "generate a book" in user_input:
-            st.write("BookBot: Great! Let's generate a book.")
+            chat_history.append(('BookBot', "Great! Let's generate a book."))
             generate_book()
         else:
-            st.write("BookBot: I'm here to help you generate a book. You can ask me to 'generate a book' or 'exit'.")
+            chat_history.append(('BookBot', "I'm here to help you generate a book. You can ask me to 'generate a book' or 'exit'."))
 
+        # Render chat history
+        for name, text in chat_history:
+            st.markdown(f'**{name}**: {text}\n\n')
 # Draw the given text in a figlet
 def draw(text):
     # Create a new figlet object
