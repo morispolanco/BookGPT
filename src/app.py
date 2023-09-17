@@ -52,12 +52,12 @@ else:
             # Generar el libro
             elif submit:
                 content = generate_book(chapters, words, category, topic, language)
-                st.markdown(content)
+                st.text(content)
 
     def main():
         # Título centrado
         st.title('BookGPT')
-        st.markdown('---')
+        st.text('---')
 
         # Mostrar el formulario
         show_form()
